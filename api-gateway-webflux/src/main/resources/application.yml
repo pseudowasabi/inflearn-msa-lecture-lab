@@ -15,6 +15,12 @@ spring:
     gateway:
       server:
         webflux:
+          default-filters:
+            - name: GlobalFilter
+              args:
+                baseMessage: SCG Webflux Global filter
+                preLogger: true
+                postLogger: true
           routes:
             - id: first-service
               uri: http://localhost:8081/
