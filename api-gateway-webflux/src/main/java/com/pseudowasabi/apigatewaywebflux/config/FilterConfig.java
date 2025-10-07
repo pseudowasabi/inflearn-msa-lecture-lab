@@ -15,7 +15,7 @@ public class FilterConfig {
         this.environment = environment;
     }
 
-    @Bean
+//    @Bean
     public RouteLocator gatewayRoutes(RouteLocatorBuilder builder) {
 
         return builder.routes()
