@@ -37,4 +37,9 @@ spring:
               filters:
 #                - AddRequestHeader=s-request, 2nd-request-header-by-yml
 #                - AddResponseHeader=s-response, 2nd-response-header-by-yml
-                - CustomFilter
+                - name: CustomFilter
+                - name: LoggingFilter
+                  args:
+                    baseMessage: SCG Webflux Logging filter
+                    preLogger: true
+                    postLogger: true
