@@ -3,6 +3,7 @@ package com.pseudowasabi.apigatewaywebflux.filter;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
+import org.springframework.cloud.gateway.filter.OrderedGatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
@@ -17,7 +18,7 @@ public class LoggingFilter extends AbstractGatewayFilterFactory<LoggingFilter.Co
 
     @Override
     public GatewayFilter apply(Config config) {
-        return (exchange, chain) -> {
+        GatewayFilter filter = new OrderedGatewayFilter((exchange, chain) -> {
             // Logging filter actions
             log.info("[Logging filter baseMessage] {}", config.baseMessage);
             if (config.isPreLogger()) {
@@ -30,7 +31,10 @@ public class LoggingFilter extends AbstractGatewayFilterFactory<LoggingFilter.Co
                     log.info("[Logging post-filter] status code: {}", exchange.getResponse().getStatusCode());
                 }
             }));
-        };
+        }, OrderedGatewayFilter.HIGHEST_PRECEDENCE);
+        // HIGHEST_PRECEDENCE has higher priority than default-filters.
+
+        return filter;
     }
 
     @Data
