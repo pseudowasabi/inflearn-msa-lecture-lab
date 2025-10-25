@@ -1,4 +1,4 @@
-package com.pseudowasabi.userservice;
+package com.pseudowasabi.userservice.global.code;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
