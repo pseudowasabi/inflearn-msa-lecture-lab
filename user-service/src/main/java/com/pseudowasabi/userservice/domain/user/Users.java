@@ -1,10 +1,7 @@
 package com.pseudowasabi.userservice.domain.user;
 
 import com.pseudowasabi.userservice.domain.BaseTimeEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,9 +15,18 @@ public class Users extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, length = 50, unique = true)
     private String email;
-    private String password;    // encrypted
+
+    // TODO
+    // encrypted password
+    @Column(nullable = false, length = 50)
+    private String password;
+
+    @Column(nullable = false, length = 20)
     private String name;
+
+    @Column(nullable = false, unique = true)
     private String userId;
 
     @Builder

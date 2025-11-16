@@ -45,4 +45,5 @@ public class UsersSaveRequestDto {
                 .userId(userId)
                 .build();
     }
+    // another way to convert class: ModelMapper
 }
