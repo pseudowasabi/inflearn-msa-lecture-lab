@@ -18,9 +18,8 @@ public class Users extends BaseTimeEntity {
     @Column(nullable = false, length = 50, unique = true)
     private String email;
 
-    // TODO
     // encrypted password
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 60)
     private String password;
 
     @Column(nullable = false, length = 20)
