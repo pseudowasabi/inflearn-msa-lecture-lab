@@ -15,6 +15,9 @@ public class Users extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, length = 36, unique = true)
+    private String userId;
+
     @Column(nullable = false, length = 50, unique = true)
     private String email;
 
@@ -26,14 +29,15 @@ public class Users extends BaseTimeEntity {
     private String name;
 
     @Column(nullable = false, unique = true)
-    private String userId;
+    private String nickname;
 
     @Builder
-    public Users(String email, String password, String name, String userId) {
+    public Users(String userId, String email, String password, String name, String nickname) {
+        this.userId = userId;
         this.email = email;
         this.password = password;
         this.name = name;
-        this.userId = userId;
+        this.nickname = nickname;
     }
 
     // use JPA dirty checking

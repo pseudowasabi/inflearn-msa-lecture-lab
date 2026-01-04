@@ -1,8 +1,8 @@
 package com.pseudowasabi.userservice.web;
 
 import com.pseudowasabi.userservice.service.UsersService;
-import com.pseudowasabi.userservice.web.dto.UsersSaveRequestDto;
-import com.pseudowasabi.userservice.web.dto.UsersSaveResponseDto;
+import com.pseudowasabi.userservice.web.dto.request.UsersSaveRequest;
+import com.pseudowasabi.userservice.web.dto.response.UsersResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,14 +20,14 @@ public class UsersApiController {
     private final UsersService usersService;
 
     @PostMapping("/users")
-    public ResponseEntity<?> createUser(@Valid @RequestBody UsersSaveRequestDto usersSaveRequestDto) {
-        Long id = usersService.createUser(usersSaveRequestDto);
+    public ResponseEntity<?> createUser(@Valid @RequestBody UsersSaveRequest usersSaveRequest) {
+        String userId = usersService.createUser(usersSaveRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(
-                UsersSaveResponseDto.builder()
-                        .id(id)
-                        .email(usersSaveRequestDto.getEmail())
-                        .name(usersSaveRequestDto.getName())
-                        .userId(usersSaveRequestDto.getUserId())
+                UsersResponse.builder()
+                        .userId(userId)
+                        .email(usersSaveRequest.getEmail())
+                        .name(usersSaveRequest.getName())
+                        .nickname(usersSaveRequest.getNickname())
                         .build()
         );
     }

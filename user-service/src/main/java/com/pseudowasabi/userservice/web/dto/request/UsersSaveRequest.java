@@ -1,4 +1,4 @@
-package com.pseudowasabi.userservice.web.dto;
+package com.pseudowasabi.userservice.web.dto.request;
 
 import com.pseudowasabi.userservice.domain.user.Users;
 import jakarta.validation.constraints.Email;
@@ -8,9 +8,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Getter
 @NoArgsConstructor
-public class UsersSaveRequestDto {
+public class UsersSaveRequest {
 
     @NotNull(message = "Email cannot be null")
     @Size(min = 2, message = "Email should be longer than or equal to 2")
@@ -25,24 +27,25 @@ public class UsersSaveRequestDto {
     @Size(min =  2, message = "Name should be longer than or equal to 2")
     private String name;
 
-    @NotNull(message = "User ID cannot be null")
-    @Size(min = 6, message = "User ID should be longer than or equal to 6")
-    private String userId;
+    @NotNull(message = "Nickname cannot be null")
+    @Size(min = 6, message = "Nickname should be longer than or equal to 6")
+    private String nickname;
 
     @Builder
-    public UsersSaveRequestDto(String email, String password, String name, String userId) {
+    public UsersSaveRequest(String email, String password, String name, String nickname) {
         this.email = email;
         this.password = password;
         this.name = name;
-        this.userId = userId;
+        this.nickname = nickname;
     }
 
     public Users toEntity() {
         return Users.builder()
+                .userId(UUID.randomUUID().toString())
                 .email(email)
                 .password(password)
                 .name(name)
-                .userId(userId)
+                .nickname(nickname)
                 .build();
     }
     // another way to convert class: ModelMapper
