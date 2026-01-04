@@ -43,3 +43,10 @@ spring:
                     baseMessage: SCG Webflux Logging filter
                     preLogger: true
                     postLogger: true
+            - id: user-service
+              uri: lb://USER-SERVICE
+              predicates:
+                - Path=/user-service/**
+              filters:
+                - CustomFilter
+                - StripPrefix=1
