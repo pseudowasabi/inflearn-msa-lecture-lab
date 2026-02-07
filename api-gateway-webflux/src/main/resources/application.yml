@@ -50,3 +50,10 @@ spring:
               filters:
                 - CustomFilter
                 - StripPrefix=1
+            - id: catalog-service
+              uri: lb://CATALOG-SERVICE
+              predicates:
+                - Path=/catalog-service/**
+              filters:
+                - CustomFilter
+                - StripPrefix=1
