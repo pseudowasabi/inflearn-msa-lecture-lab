@@ -2,6 +2,7 @@ package com.pseudowasabi.catalogservice.domain.catalog;
 
 import com.pseudowasabi.catalogservice.domain.BaseTimeEntity;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -25,4 +26,12 @@ public class Catalogs extends BaseTimeEntity {
 
     @Column(nullable = false)
     private Integer unitPrice;
+
+    @Builder
+    public Catalogs(String productId, String productName, Integer stock, Integer unitPrice) {
+        this.productId = productId;
+        this.productName = productName;
+        this.stock = stock;
+        this.unitPrice = unitPrice;
+    }
 }
