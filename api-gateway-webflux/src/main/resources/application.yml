@@ -57,3 +57,10 @@ spring:
               filters:
                 - CustomFilter
                 - StripPrefix=1
+            - id: order-service
+              uri: lb://ORDER-SERVICE
+              predicates:
+                - Path=/order-service/**
+              filters:
+                - CustomFilter
+                - StripPrefix=1
