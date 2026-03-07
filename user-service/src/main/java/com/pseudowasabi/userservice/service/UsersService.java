@@ -7,6 +7,9 @@ import com.pseudowasabi.userservice.web.dto.response.OrdersResponse;
 import com.pseudowasabi.userservice.web.dto.response.UsersResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,7 +21,7 @@ import java.util.List;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class UsersService {
+public class UsersService implements UserDetailsService {
 
     private final UsersRepository usersRepository;
     private final PasswordEncoder passwordEncoder;
@@ -56,5 +59,15 @@ public class UsersService {
 
     public Iterable<Users> getAllUsers() {
         return usersRepository.findAll();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Users users = usersRepository.findByEmail(username);
+        if (users == null) {
+            throw new UsernameNotFoundException(username);
+        }
+
+        return new User(users.getEmail(), users.getPassword(), true, true, true, true, new ArrayList<>());
     }
 }
