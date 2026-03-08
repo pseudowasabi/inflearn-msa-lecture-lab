@@ -34,9 +34,9 @@ public class SecurityConfig {
 
     @Bean
     protected SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {
-
         AuthenticationManagerBuilder authenticationManagerBuilder = httpSecurity.getSharedObject(AuthenticationManagerBuilder.class);
         authenticationManagerBuilder.userDetailsService(usersService).passwordEncoder(bCryptPasswordEncoder);
+
         AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
 
         httpSecurity
@@ -45,7 +45,7 @@ public class SecurityConfig {
                         .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers("/welcome").permitAll()
                         .requestMatchers("/**").access(
-                                new WebExpressionAuthorizationManager("hasIpAddress('127.0.0.1') or hasIpAddres('::1') or hasIpAddress('192.168.45.47')")
+                                new WebExpressionAuthorizationManager("hasIpAddress('127.0.0.1') or hasIpAddres('::1') or hasIpAddress('192.168.0.12')")
                         )
                         .anyRequest().authenticated()
                 )
