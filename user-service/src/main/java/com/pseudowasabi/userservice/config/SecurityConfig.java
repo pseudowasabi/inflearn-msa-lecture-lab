@@ -3,7 +3,6 @@ package com.pseudowasabi.userservice.config;
 import com.pseudowasabi.userservice.global.filter.AuthenticationFilter;
 import com.pseudowasabi.userservice.service.UsersService;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.cfg.Environment;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,7 +13,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.expression.WebExpressionAuthorizationManager;
 import org.springframework.security.web.util.matcher.IpAddressMatcher;
@@ -25,7 +23,7 @@ import org.springframework.security.web.util.matcher.IpAddressMatcher;
 public class SecurityConfig {
 
     private final UsersService usersService;
-    private final Environment environment;
+//    private final Environment environment;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public static final String ALLOWED_IP_ADDRESS = "127.0.0.1";
@@ -62,10 +60,5 @@ public class SecurityConfig {
         authenticationFilter.setAuthenticationManager(authenticationManager);
 
         return authenticationFilter;
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 }
